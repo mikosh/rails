@@ -1,0 +1,9 @@
+ Edit Photo:
+ <%= error_messages_for :photo %>
+ <% form_for(:photo, :url => user_album_photo_path(@album.user_id, @album, @photo), :html => {:method => :put}) do |f| %>
+ Description:
+ <%= f.text_field :description, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+ <%= submit_tag 'Update Photo' %>
+ <% end %> 
+
+

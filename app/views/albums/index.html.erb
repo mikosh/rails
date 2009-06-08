@@ -1,0 +1,24 @@
+<p>
+	<%if @user != current_user%>
+		<%=link_to "Back to #{@user.login}'s Profile", user_path(@user.id)%>
+	<% else %>
+		<%=link_to "Back to Profile", user_path(@user.id)%>
+	<% end %>
+</p>
+<h3><%=h @user.login + "'s" if @user.id != current_user.id %><%= "My" if @user==current_user%>  Photos:</h3>
+ <div class="gallery" id="photos">
+ <% @photos.each do |p| %>
+ <%= link_to image_tag(p.public_filename(:thumb), :class => "img", :title => p.description), 
+	user_album_photo_path(@user.id, p.album_id, p) %>
+ <% end %>
+
+ <%= will_paginate @photos%>
+</div>
+<h3><%=h @user.login + "'s" if @user.id != current_user.id %><%= "My" if @user==current_user%> Albums:</h3>
+<div class="gallery">
+<%=render :partial => 'shared/user_albums', :locals=>{ :user => @user} %>
+<%= will_paginate @albums%>
+</div>
+<p>
+<%=link_to "Create album", new_user_album_path if (@user.id == current_user.id)%>
+</p>

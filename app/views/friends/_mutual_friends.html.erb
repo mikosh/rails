@@ -1,0 +1,4 @@
+<%@user.mutual_friends_for(u).each do |f|%>
+	<%=render :partial => 'shared/friend_small', :locals => {:u => f}%>
+	<br clear="all"/>
+<% end %>

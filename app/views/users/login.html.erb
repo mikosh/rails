@@ -1,0 +1,23 @@
+<div class="user_form">
+ 	<h2 style="border-bottom: 1px solid #585858;padding:5px;">Community Login</h2>
+	<% if flash[:notice] && flash[:error] %>
+	<div class="error">
+		<%= flash[:error]%>
+		<%= flash[:notice]%>
+		<%= error_messages_for :user %>
+	</div>
+	<% end %>
+	<div style="width:400px;text-align:right">
+	<% form_tag session_path do %>
+	
+	<p>Email:       <%= text_field_tag 'email', @email, :style => "width:200px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+	<p>Password:    <%= password_field_tag 'password', nil, :style => "width:200px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+	<p>Remember me:<%= check_box_tag 'remember_me','1', @remember_me%>    <%= link_to "Forgot your password?", forgot_path %></p>
+	                    
+	<%=submit_tag "Login"%>
+	
+	<p></p>
+	<% end %>
+	</div>
+	<%=link_to "Return to map", :back%>
+</div>

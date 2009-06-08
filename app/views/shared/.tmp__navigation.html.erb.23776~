@@ -1,0 +1,92 @@
+<div id="menu_container">
+    <div id="menubar" style="height:31px;">
+        <!--<div id="menubar_logo">
+            <%= link_to image_tag("/images/bmwclubhamburg_logo150x35.png", :title=>"Go to threesixty Home", :id=> "spann"),root_path, :class=>"menu_title" %>
+        </div> -->
+        <div id="menubar_core">
+            <ul id="navigationul">
+                <li id="menu_home" class="menu">
+                    <div class="menu_title">
+                        <%= link_to "Home", root_path, :class=>"menu_title", :class=>"menu_title" %>
+                    </div>
+                    
+                </li>
+                <li id="menu_profile" class="menu">
+                    <div class="menu_title">
+                        <%= link_to "Profile", user_path(current_user) %>
+                    </div>
+                    
+                </li>
+                <li id="menu_friends" class="menu">
+                    <div class="menu_title">
+                        <%= link_to "Friends", user_friends_path(current_user) %>
+                    </div>
+                    <ul>
+                        <li>
+                            <%= link_to 'Find friends' %>
+                        </li>
+								<li>
+                            <%= link_to 'Show Friends', user_friends_path(current_user) %>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li id="menu_inbox" class="menu">
+                    <div class="menu_title">
+                    		<% new_msg = "(" + @new_messages.size.to_s + ")" if(@new_messages.size != 0) %>
+                        <%= link_to "Inbox " + new_msg.to_s, inbox_path %>
+                    </div>
+                    <ul>
+                        <li>
+                            <%= link_to 'Inbox' + new_msg.to_s, inbox_path %>
+                        </li>
+                        <li>
+                            <%= link_to 'Sent Messages', sent_index_path %>
+                        </li>
+                        <li>
+                            <%= link_to 'Compose Message', new_sent_path %>
+                        </li>
+                    </ul>
+                </li>
+					 <li class="menu">
+					 	<div class="menu_title">
+					 		<%= link_to "The World", maps_path%>
+					 	</div>
+					 </li>
+            </ul>
+        </div>
+        <div id="menubar_aux">
+            <div id="menu_account" class="menu">
+                <div class="menu_title">
+                    <%= link_to "#{current_user.login}", user_path(current_user) %>
+                </div>
+            </div>
+            <ul class="menu">
+                <li id="menu_settings">
+                    <div class="menu_title">
+                        <%=link_to "Settings" %>
+                    </div>
+                    <ul>
+                        <li>
+                            <%=link_to "Profile Settings" %>
+                        </li>
+                        <li>
+                            <%=link_to "Profile Settings2" %>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="menu_logout" class="menu">
+                <div class="menu_title">
+                    <%= link_to "Logout", session_path, :method => "delete" %>
+                </div>
+            </div>
+            <div id="universal_search">
+                <%=render :partial=>"shared/searchform" %>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+

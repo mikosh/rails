@@ -1,0 +1,31 @@
+<p><%=link_to "Back to Control Panel", admin_users_path()%></p>
+<% if flash[:notice] || flash[:error] || !@user.errors.empty?%>
+<div class="error">
+	<%= error_messages_for :user %>
+	<%=flash[:error]%>
+	<%= flash[:notice] %>
+</div>
+<% end %>
+<div class="entry-form" style="width:500px; text-align: right;">
+<% @user.password = @user.password_confirmation = nil if @user%>
+<% form_for :user, :url => {:action => "create"} do |f| -%>
+<p><label for="login">Username*:</label>
+<%= f.text_field :login, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+<p><label for="name">Full Name*:</label>
+<%= f.text_field :name, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+<p><label for="email">Email*:</label>
+<%= f.text_field :email, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+
+<p><label for="password">Password*:</label>
+<%= f.password_field :password, :value => @random_password, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+
+<p><label for="password_confirmation">Confirm Password*:</label>
+<%= f.password_field :password_confirmation, :value => @random_password, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+<br clear="all"/>
+<p><%= submit_tag 'Sign up' %></p>
+<% end -%>
+</div>
+
+<p>Generated password is:   <b><%= @random_password%></b></p>
+
+

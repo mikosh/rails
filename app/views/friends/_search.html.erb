@@ -1,0 +1,64 @@
+<% if @users and @users[0].object_id != current_user.id %>
+<div id="bord"></div>
+<% for u in @users %>
+<% if u.id != current_user.id %>
+
+<div id="light_<%= u.id.to_s%>" class="white_content" style="display:none">
+    <%=render :partial => 'shared/show_user', :locals=>{:u => u} %>
+</div>
+<div id="friend-wrapper">
+    <div class="friend">
+        <div class="user-image">
+            <% if u.albums.first.photos.first %>
+					<%if current_user.friends.include?(u) || current_user.id == u.id%>
+				    <%=link_to image_tag(u.albums.first.photos.first.public_filename(:small)),user_friend_path(@user, u) %>
+					<% else %>
+					<%=link_to_function image_tag(u.albums.first.photos.first.public_filename(:small)), "popup('#{u.id}')"%>
+					<% end %>
+				<% else %>
+					<%if current_user.friends.include?(u) || current_user.id == u.id%>
+					<%=link_to image_tag('/images/user_default_small.png'), user_friend_path(@user, u) %>
+					<% else %>
+					<%=link_to_function image_tag('/images/user_default_small.png'), "popup('#{u.id}')"%>
+					<% end %>
+				<% end %>
+			
+        </div>
+        <div id="user-control">
+            <div id="last-cell">
+                <%= render :partial => 'friends/last_cell_content', :locals=>{:u => u}%>
+            </div>
+        </div>
+        <div id="user-main">
+            <h2>
+            	<% if current_user.friends.include?(u) %>
+            	<%= link_to u.login, user_path(u.id) %>
+					<% else %>
+					<%= link_to_function u.login, "popup('#{u.id}')" %>
+					<% end %>
+				</h2>
+            <p>
+            	<% unless @user.mutual_friends_for(u).empty? %>
+						<%= link_to_function "Mutual Friends (" + @user.mutual_friends_for(u).size.to_s + ")" do |page|
+			            page.replace_html "friends_" + u.id.to_s, :partial=> 'friends/mutual_friends',
+			            :locals=>{:user => @user, :u => u}
+			            page["friends_" + u.id.to_s].toggle
+	            	end %>
+					<% end %>
+				<%= link_to 'View Friends', user_friends_path(u) %> | <%= link_to 'Message', new_sent_path %>
+            </p>
+			<div id="non-visible" style="padding-top:7px">
+				<div id="<%= "friends_"+ u.id.to_s %>" class="friends" style="display:none"></div>
+			</div>
+        </div>
+    </div>
+</div>
+<% end %>
+<% end %>
+<% else  %>
+	<center>
+		<p>No results were found.</p>
+	</center>
+<% end %>
+<div>
+</div>

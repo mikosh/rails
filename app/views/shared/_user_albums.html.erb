@@ -1,0 +1,25 @@
+<% for album in @user.albums %>
+	<% unless album.album_name == "Profile Album"%>
+	<% p= album.photos.first %>
+	<div id="album-wrapper">
+		<% if (@user.id == current_user.id) %>
+			<%=link_to image_tag(p.public_filename(:thumb), :title=> "#{album.album_name}", 
+			:class=>"album-img"), edit_user_album_path(@user.id, album) if (p != nil)%>
+			<%=link_to image_tag("/images/default.png", :title=> "#{album.album_name}", 
+			:class=>"album-img"), edit_user_album_path(@user.id, album) if (p == nil)%>
+			<br/>
+			<%=link_to "#{album.album_name}", edit_user_album_path(@user.id, album), :class=>"album-title" %>
+			<%=link_to image_tag("/images/error16.png", :style=>"border:none;"), user_album_path(@user.id, album), :method => :delete, 
+			:confirm => 'Delete Album?', :style => "position:absolute;top:1px;right:1px"  %>
+		<% else %>
+			<%=link_to image_tag(p.public_filename(:thumb), :title=> "#{album.album_name}", 
+			:class=>"album-img"), user_album_path(@user.id, album) if (p != nil)%>
+			<%=link_to image_tag("/images/default.png", :title=> "#{album.album_name}", 
+			:class=>"album-img"), user_album_path(@user.id, album) if (p == nil)%>
+			<br/>
+			<%=link_to "#{album.album_name}", user_album_path(@user.id, album), :class=>"album-title" %>
+		<% end %>
+	</div>
+	<% end %>
+<% end %>
+<div style="clear:both"></div>

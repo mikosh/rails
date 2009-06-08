@@ -1,0 +1,8 @@
+<ul>	
+<%@locations.each do |l| %>
+	<li id="sidebar-item<%= l.object_id%>"><%=link_to_function l.address, "focusPoint(#{l.object_id}, #{l.latitude}, #{l.longitude}, #{l.address.to_json})"%></li>
+	<% if @locations.first == l && @locations.size > 1%>
+		<p style="font-weight:bold;padding-left:5px;color:#585858">Do you mean:</p>
+	<% end %>
+<% end %>
+</ul>

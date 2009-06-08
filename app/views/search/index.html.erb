@@ -1,0 +1,9 @@
+<p>
+	<%=link_to "New Search", users_path()%>
+</p>
+<% if flash[:notice] %>
+<div class="notice">
+	<%= flash.now[:notice]%>
+</div>
+<% end %>
+<%=render :partial => "friends/search" %>

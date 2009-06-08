@@ -1,0 +1,19 @@
+<%= error_messages_for :friendship %>
+<%= error_messages_for :message %>
+<% remote_form_for(:friendship, :url => user_friends_path(:user_id => current_user.id, :friend_id => u.id),
+	 :class=>'add-friend') do %>
+	<% fields_for :friendship, message do |f| %>
+		<div id="text-field" style="position:relative;display:none;">
+		<%= f.text_area :body, :style => "width:270px;height:80px;", :value =>"Please allow me to see your profile.",
+	 :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+		<%=link_to_function image_tag("/images/Close.gif", :style => "border:none;"), "$('text-field').style.display='none';", :style => "position:absolute;top:4px;right:4px;" %>
+		</div>
+	<% end %>
+	<div id="submit">
+		<%= submit_tag "Add Friend", :onClick => "popup_hide('#{u.id}')" if !current_user.requested_friends.include?(u)%>
+        <%= button_to_function "Cancel", "popup_hide('#{u.id}')" %>
+    </div>
+	
+<% end %>
+
+

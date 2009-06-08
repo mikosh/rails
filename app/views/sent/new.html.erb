@@ -1,0 +1,54 @@
+<div class="mail">
+    <h2>Compose</h2>
+    <%= error_messages_for :message %>
+	 
+	 <% form_for :message, :url => {:controller => "sent", :action => "create"} do |f| %>
+        <table style="background:none;">
+			<tbody>
+				<tr>
+					<td>
+					<label for="to">
+	                    To:
+	                </label>
+					</td>
+					<td>
+	                <select name="message[to][]" style="width:250px;">
+	                    <%= options_from_collection_for_select(@users, :id, :login, @message.to) %>
+					</select>
+					</td>
+				</tr>
+				<tr>
+            		<td>
+	                <label for="subject">
+	                    Subject: 
+	                </label>
+					</td>
+					<td>
+	                <%= f.text_field :subject, :style => "width:420px;" , :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+					</td>
+				</tr>
+            	<tr>
+            		<td>
+	                <label for="body">
+	                    Body: 
+	                </label>
+					</td>
+					<td>
+                	<%= f.text_area :body, :style => "width:420px;height:200px", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term"%>
+           			</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+                	<%= submit_tag "Send" %>
+					</td>
+				</tr>
+			</tbody>
+    	</table>	
+    <% end %>
+	 <div style="clear:both">
+	 </div>
+</div>
+<%content_for :navigation do %>
+<%=render :partial=>"shared/submenu" %>
+<%end %>

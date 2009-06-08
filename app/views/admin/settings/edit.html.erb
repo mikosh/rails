@@ -1,0 +1,25 @@
+<p><%=link_to "<< Back", admin_users_path()%></p>
+<div style="text-align:right;width:500px;">
+<%= error_messages_for :settings %>
+<%= flash[:error] %>
+<% form_tag admin_settings_path, :method => :put do %>
+<p><label for="space">Available space on server (MB):</label>
+<%= text_field_tag :space, @settings.space, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+<p><label for="user_space">User space(min. 10MB):</label>
+<%= text_field_tag :user_space, @settings.user_space, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+<%= observe_field :user_space,
+	:frequency => 0.5,
+	:update => 'calculate',
+	:url =>{:action => 'calculate'},
+	:with => "'calc=' + value"%>
+<%= hidden_field_tag :max_photos, 15 %>
+<%= hidden_field_tag :photo_size, 0.12 %>
+<div id="calculate">
+<%=render :partial => 'calculate'%>
+
+</div>
+<br clear="all"/>
+<p><%= submit_tag 'Update settings' %></p>
+<% end %>
+</div>
+

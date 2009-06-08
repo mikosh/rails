@@ -1,0 +1,53 @@
+<div class="mail">
+    <h2>Sent Messages</h2>
+    <% form_tag delete_messages_sent_path do |f| %>
+    <div>
+        Select: <%=link_to_function "All", update_page {|page| page.select('#content input').each {|x|x.checked = true}} %>
+        <%=link_to_function "None", update_page {|page| page.select('#content input').each {|x|x.checked = false}} %>
+    </div>
+    <table border="1" width="100%" cellpadding="1" cellspacing="1">
+        <tr>
+            <th width="5%">
+                <%=submit_tag "Delete", :onclick => "return #{confirm_javascript_function("Are you sure")};" %>
+            </th>
+            <th width="15%">
+                To
+            </th>
+            <th>
+                Subject
+            </th>
+            <th width="15%">
+                Sent
+            </th>
+        </tr>
+        <% for message in @messages %>
+        <tr>
+            <td>
+                <%=check_box_tag 'message_ids[]', message.id %>
+            </td>
+            <td>
+                <%=h message.recipients.map(&:login).to_sentence %>
+            </td>
+            <td>
+                <%= link_to h(message.subject), sent_path(message) %>
+            </td>
+            <td>
+                <%= distance_of_time_in_words(message.created_at, Time.now) %>ago
+            </td>
+        </tr>
+        <% end %>
+    </table>
+    <br/>
+    <center>
+        <% if @messages.empty? %>
+        <p>
+            Your Sent folder is empty. <%=link_to "Compose a message", new_sent_path %>
+        </p>
+        <% end %>
+    </center>
+    <% end %>
+</div>
+<%= will_paginate @messages %>
+<%content_for :navigation do %>
+<%=render :partial=>"shared/submenu" %>
+<%end %>

@@ -1,0 +1,4 @@
+<p><label for="max_albums">Maximum albums per user:</label>
+<%= text_field_tag :max_albums, @settings.max_albums.to_i, :disabled => true, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term"%></p>
+<p><label for="max_messages">Maximum messages per user:</label>
+<%= text_field_tag :max_messages, @settings.max_messages.to_i, :disabled => true, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term"%></p>

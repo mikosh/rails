@@ -1,0 +1,33 @@
+<% unless current_user.pending_friends.empty? %>
+<div id="bord"></div>
+<% current_user.pending_friends.each do |u| %>
+<div id="friend-wrapper">
+    <div class="friend">
+        <div class="user-image">
+           	<% if u.albums.first.photos.first %>
+				<%=link_to image_tag(u.albums.first.photos.first.public_filename(:small)),user_friend_path(@user, u) %>
+				<% else %>
+				<%=link_to image_tag('/images/user_default_small.png'), user_friend_path(@user, u) %>
+				<% end %>
+        </div>
+        <div id="user-control">
+            <div id="last-cell">
+            	<% if @user.id == current_user.id %>
+                <%= link_to 'Accept', user_friend_path(:user_id => current_user, :id => u),
+                :method => :put, :confirm => 'Accept friend request! Are you sure?' %> | <%= link_to 'Reject', user_friend_path(:user_id => current_user, :id => u),
+                :method => :delete, :confirm => 'Reject friend request! Are you sure?' %>
+				<% end %>
+            </div>
+        </div>
+        <div id="user-main">
+            <h2><%= link_to u.login, user_path(u.id) %></h2>
+            <p>
+                <%= link_to 'View Friends', user_friends_path(u) %> | <%= link_to 'Message', new_sent_path %>
+            </p>
+        </div>
+    </div>
+</div>
+<% end %>
+<% else %>
+None
+<% end %>

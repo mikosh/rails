@@ -1,0 +1,11 @@
+<%=error_messages_for :location %>
+<%form_tag @location do %>
+<%=hidden_field_tag :id, @photo.id %>
+<p>
+    Enter photo title: <%=text_field_tag :name, @location.name, :class=>'second', :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+</p>
+<p>
+    Enter precise photo location: <%=text_field_tag :address, @location.address, :class=>'second', :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+</p>
+<%=submit_tag "Add to map" %>
+<% end %>

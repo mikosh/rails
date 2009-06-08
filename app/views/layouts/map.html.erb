@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+    <head>
+    	<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible"/>
+		<meta content="Намери своето място на cветовната карта, търси адреси и POI. Find addresses, locations and cool places." name="description"/>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title> Find your spot on the Earth </title>
+        <%= stylesheet_link_tag 'main', 'navi',"googleMaps" %>
+        <%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag("markerGroup") %>
+		<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/release/src/markermanager.js">
+    	</script>
+		<script type="text/javascript" src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAdAtcnIwG_jTGwL1CAqxcVxTJQa0g3IQ9GZqIMmInSLzwtGDKaBT1Jt-0jpamfPG4jJsvBmLBDf0XIg&sensor=true">
+		</script>
+
+		<noscript><div class="javascript">This Page requires JavaScript support. Please active your browser JavaScript support
+		or download the newest <%=link_to "Mozilla Firefox", "http://www.mozilla-europe.org/en/firefox/", :target => "_blank"%> web browser</div></noscript>	
+	</head>
+	<% logged_in?? @onload ='initialize(true);': @onload ='initialize(false);'  %>
+    <body id="body" <%= "onload= '#{@onload}'" %> >   
+        <div class="navigation">
+            <% if logged_in? %>
+            	<%=render :partial => 'shared/navigation' %>
+            <% else %>
+			   	<%=render :partial => "shared/logform" %>
+            <% end %>
+        </div>
+        <%= yield %>
+    </body>
+</html>

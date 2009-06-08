@@ -1,0 +1,17 @@
+<p><%=link_to "Back to Profile", user_path(current_user)%></p>
+<div class="user_form">
+	<h2 style="border-bottom: 1px solid #585858;padding:5px;">Change Password</h2>
+	<% if flash[:notice] || !@user.errors.empty?%>
+	<div class="error">
+		<%= error_messages_for :user %>
+		<%= flash[:notice]%>
+	</div>
+	<% end %>
+	<div style="width:400px; text-align:right;">
+	<% form_for :user do |f| -%>
+	    <p>Password: <%= f.password_field :password, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+		<p>Confirm Password: <%= f.password_field :password_confirmation, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+		<%= submit_tag 'Change Password' %>
+	<% end -%>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<% if @users %>
+	<div id="bord">
+	</div>
+	<%=render :partial => "friends/search" %>
+<% else %>
+	<% if current_user.id == @user.id %>
+		<p><%=link_to "Back to Profile", user_path(@user.id)%></p>
+		<div class="box" style="min-height:100px;">
+			<h3>My Friends</h3>
+			<div style="padding:5px;">
+				<%= render :partial => 'friends/friends' %>
+			</div>
+		</div>
+		<div class="box"  style="min-height:100px;">
+		<h3>Requested friends</h3>
+			<div id="requested" style="padding:5px;">
+			    <%= render :partial => 'friends/requested_friends' %>
+			</div>
+		</div>
+		<div class="box" style="min-height:100px;">
+			<h3>Pending friends</h3>
+			<div style="padding:5px;">
+				<%= render :partial => 'friends/pending_friends' %>
+			</div>
+		</div>
+	<% else %>
+		<p><%=link_to "Back to #{@user.login}'s Profile", user_path(@user.id)%></p>
+		<div class="box" style="min-height:100px;">
+			<h3><%= @user.login %>'s Friends: </h3>
+			<div style="padding:5px;">
+				<%= render :partial => 'friends/friends' %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

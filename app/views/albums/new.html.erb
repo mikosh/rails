@@ -1,0 +1,31 @@
+<p>
+	<%=link_to "Back to Profile", user_path(current_user)%> >> <%=link_to "Back to Albums", user_albums_path%>
+</p>
+	<% if flash[:notice] && !@album.errors.empty? %>
+	<div class='error'>
+		<%=flash[:notice]%>
+		<%=error_messages_for :album%>
+		<%=error_messages_for :photo%>
+	</div>
+	<% end %>
+    <% form_for(:album, :url => {:action => 'create'}, :html => { :multipart => true }) do |f| %>
+    <div id="images">
+		<h4>Album name:</h4>
+	    <%= f.text_field :album_name, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+	    <h4>Location:</h4>
+	    <%= f.text_field :location, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %>
+	    <h4>Upload cover image:</h4>
+	    <div id="new-image">
+	    	<%=render :partial => "photo", :object => Photo.new %>
+	    </div>
+	</div>
+	<p>
+    <%=submit_tag "Create Album" %>
+	</p>
+    <% end %>
+
+<p>
+    <%= link_to_function "Add Image", :title => "Browse new image" do |page|
+    	page['new-image'].replace_html :partial => "photo", :object => Photo.new
+    end %>
+</p>

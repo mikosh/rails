@@ -1,0 +1,11 @@
+<%=flash[:notice]%>
+<%if loc%>
+	<ul>
+	<%loc.each do |l|%>
+		<li><%=l.address%></li>
+	<%end%>
+	</ul>
+<% else%>
+<h3>No result found</h3>
+<%= debug loc%>
+<%end%>

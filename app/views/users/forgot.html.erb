@@ -1,0 +1,16 @@
+<div class="user_form">
+	<h2 style="border-bottom: 1px solid #585858;padding:5px;">Forgot Password</h2>
+	<% if flash[:notice]%>
+	<div class="error">
+		<%= error_messages_for :user %>
+		<%= flash[:notice]%>
+	</div>
+	<% end %>
+	<p><b> Please enter your E-mail address. </b></p>
+	<% form_for :user do |f| -%>
+	<p>
+       Email: <%= f.text_field :email %><%= submit_tag 'Submit' %>
+	</p>
+	<% end -%>
+</div>
+

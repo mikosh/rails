@@ -1,0 +1,33 @@
+<%= render :partial => 'controlpanel'%>
+<div id="bord">
+</div>
+<% @users.each do |u| %>
+<div id="friend-wrapper">
+    <div class="friend">
+        <div class="user-image">
+            <% if u.albums.first.photos.first %>
+            <%=link_to image_tag(u.albums.first.photos.first.public_filename(:small)),admin_user_path(u) %>
+            <% else %>
+            <%=link_to image_tag('/images/user_default_small.png'), admin_user_path(u) %>
+            <% end %>
+        </div>
+        <div id="user-control">
+            <div id="last-cell">
+				<% if u.state == "active"%>
+				<%= link_to "[Suspend]", suspend_admin_user_path(u), :method => :post%> | 
+				<% elsif u.state == "suspended" %>
+				<%=link_to "[Unsuspend]", unsuspend_admin_user_path(u), :method => :post%> | 
+				<% end %>
+                <%= link_to '[Remove]', purge_admin_user_path(u),
+                :method => :delete, :confirm => 'Are you sure you want to delete user?' %>
+            </div>
+        </div>
+        <div id="user-main">
+            <h2><%= link_to u.login, admin_user_path(u.id) %><font style="font-size:11px; font-weight:normal;margin-left:5px;"><%= "is " + u.state if (u.state != "active")%></font></h2>
+            <p>
+                <%= link_to '[Message]', new_sent_path %>|<%= link_to '[View Friends]',user_friends_path(u) %>
+			</p>
+        </div>
+    </div>
+</div>
+<% end %>

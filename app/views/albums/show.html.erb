@@ -1,0 +1,9 @@
+ <%=flash[:notice]%>
+ <p>
+	<%=link_to "Back to #{@user.login}'s Profile", user_path(@user)%> >> <%= link_to "Back to #{@user.login}'s Photos", user_albums_path(@user.id) %>
+ </p>
+ <div id="photos">
+	 <% @album.photos.each do |p| %>
+	 <%= link_to image_tag(p.public_filename(:thumb), :class => "img", :title=> p.description), user_album_photo_path(@user, @album, p) %>
+	 <% end %> 
+ </div>

@@ -1,0 +1,18 @@
+<div id="control-panel">
+	<ul>
+	<li><h3>Control Panel</h3></li>	
+	<li><p>Current number of users: <%= @users.size %></p></li>
+	<li><p>Currently online: <%= @online_users.size %></p></li>
+	<li><p>Total Space on server: <%= @settings.space%> MB</p></li>
+	<li><p>Available Space per user: <%= @settings.user_space%> MB</p></li>
+	<li><p>Maximum Messages per user: <%=@settings.max_messages%></p></li>
+	<li><p>Maximum Albums per user: <%= @settings.max_albums%></p></li>
+	<li><p>Maximum Photos per album (fixed): <%= @settings.max_photos%></p></li>
+	<li><p>Photo size (fixed): <%= @settings.photo_size%> MB</p></li>
+	</ul>
+	<div style="float:right;padding:5px 5px 5px 5px;">
+		<%=link_to "[Create New User]", new_admin_user_path%> | 
+		<%=link_to "[Edit]", edit_admin_settings_path%>
+	</div>
+	<br clear="all"/>
+</div>

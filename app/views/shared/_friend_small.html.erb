@@ -1,0 +1,24 @@
+<div class="user-small">
+	<div class="user-image">
+		<% if u.albums.first.photos.first %>
+			<%if current_user.friends.include?(u) || current_user.id == u.id%>
+	    	<%=link_to image_tag(u.albums.first.photos.first.public_filename(:small)),user_friend_path(@user, u) %>
+			<% else %>
+			<%=link_to_function image_tag(u.albums.first.photos.first.public_filename(:small)), "popup('#{u.id}')" %> 
+			<% end %>
+		<% else %>
+		<%if current_user.friends.include?(u) || current_user.id == u.id%>
+		<%=link_to image_tag('/images/user_default_small.png'), user_friend_path(@user, u) %>
+		<% else %>
+			<%=link_to_function image_tag('/images/user_default_small.png'), "popup('#{u.id}')" %>
+		<% end %>
+		<% end %>
+	</div>
+	<div class="user-link">
+		<%if current_user.friends.include?(u) || current_user.id == u.id%>
+		<%=link_to u.login, user_friend_path(@user, u) %>
+		<% else %>
+			<%=link_to_function u.login, "popup('#{u.id}')" %>
+		<% end %>
+	</div>
+</div>

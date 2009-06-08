@@ -1,0 +1,19 @@
+<div id="comment-form">
+<%=error_messages_for :comment%>
+<%= flash[:error] %>
+<% form_for(@comment, :method => :create) do |f|%>
+  <p>
+    <b>Comment: </b>
+  </p>
+  <p><%= f.text_area :comment, :style => "width:320px;height:80px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+	<%= hidden_field_tag :commentable_type, type.class.name%>
+	<%= hidden_field_tag :commentable_id, type.id%>
+  <p>
+    <%= f.submit "Post" %>
+	 <%= link_to_function "Cancel" do |page|
+							page["new-comment"].toggle
+							end%>
+  </p>
+<% end %>
+
+</div>

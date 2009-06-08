@@ -1,0 +1,60 @@
+<% if flash[:notice]%>
+<div class="notice">
+	<%= flash[:notice]%>
+</div>
+<% end %>
+<% unless @users %>
+<div id="last_row"></div>
+<div class="search-form">
+	<h4>Online users: <%= @online_users.size%></h4>
+	<h4>Find people</h4>
+	<% form_tag(:controller => "search", :action => "index") do %>
+        <table cellpadding="1" cellspacing="1">
+        	<tr>
+        		<td><p>Fullname/Username:</p></td>
+		  		<td><%=text_field_tag :login, params[:login], :style => "width:200px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %> </td>
+				<td><%=submit_tag "Search", {:title => "Find people"} %></td>
+				<td><%=link_to_function "Extended Search", :title => "Filter your search requests" do |page| page["search_filter"].toggle end%></td>
+		  </tr>
+		 	</table>
+			<div id="search_filter" style="display:none">
+			<table cellpadding="1" cellspacing="1">
+		 	<tr>
+		 		<td><p>Gender:</p></td>	
+				<td><ul>
+					<li><%= radio_button_tag 'gender', 'all' , true %>all</li>
+					<li><%= radio_button_tag 'gender', 'Male', false%>male</li>
+					<li><%=radio_button_tag 'gender', 'Female', false%>female</li>
+		 			</ul>
+				</td>	
+			</tr>
+			<tr>
+			<td><p>Status:</p></td>
+			<td><ul>
+				<li><%= radio_button_tag 'status', 'all', true%>not specify</li>
+				<li><%= radio_button_tag 'status', 'online', false%>online</li>
+				<li><%= radio_button_tag 'status', 'offline', false%>offline</li>
+				</ul> 
+		 	</td>
+			</tr>	
+			<tr>
+				<td><p>City:</p></td>
+				<td><%=text_field_tag :city, params[:city], :style => "width:200px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term", :title=>"Choose city"%></td>
+			</tr>
+			<tr>
+				<td><p>Country:</p></td>
+				<td><%=country_select :country, params[:country], "all" %></td>
+			</tr>
+			<tr>
+				<td><p>Region:</p></td>
+				<td><%=text_field_tag :region, params[:region], :style => "width:200px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term", :title=>"Choose region"%></td>
+		 	</tr>
+	 
+	 </table>
+	 </div>
+    <% end %>
+	 
+</div>
+<% else%>
+	<%=render :partial => "friends/search" %>
+<% end %>

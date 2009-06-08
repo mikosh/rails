@@ -1,0 +1,21 @@
+<% if photo != nil %>
+	<% fields_for "album[image_attributes][]", photo do |p| %>
+	<% if photo.new_record? %>
+	<div class="newimage">
+	    <p>
+	        <%= p.file_field :uploaded_data, :class => "formField", :index => nil %>
+	        <%= link_to_function "Remove", "$(this).up('.newimage').remove()" %>
+	    </p>
+	</div>
+	<% else %>
+	<div class="image">
+		<%= link_to_function image_tag("/images/error16.png", :style=>"border:none;"), "if (confirm('Delete photo?')) mark_for_destroy(this);", :style=>"position:absolute;top:2px;right:2px;", :title => "Delete photo", :confirm => 'Are you sure?' %>
+	    <%=link_to image_tag(photo.public_filename(:thumb), :class=>"img", :title=> photo.description, :border => 1), user_album_photo_path(@user, @album, photo) %>
+	    <%= p.file_field :uploaded_data, :index => nil, :style => 'display:none' %>
+	    <%= p.hidden_field :id, :index => nil %>
+	    <%= p.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+	</div>
+	<% end %>
+<% end %>
+<% end %>
+	

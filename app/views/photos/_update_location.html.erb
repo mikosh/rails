@@ -1,0 +1,12 @@
+<%=error_messages_for :location %>
+<%form_tag @location, :method=> :put do %>
+<%=hidden_field_tag :id, @location.id %>
+<%=hidden_field_tag :photo_id, @location.photo_id %>
+<p>
+    Enter photo title: <%=text_field_tag :name, @location.name, :class=>'second' %>
+</p>
+<p>
+    Enter precise photo location: <%=text_field_tag :address, @location.address, :class=>'second' %>
+</p>
+<%=submit_tag "Update location" %>
+<%end %>

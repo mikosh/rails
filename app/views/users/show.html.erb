@@ -1,0 +1,22 @@
+<% if flash[:notice]%>
+	<div class="notice">
+		<%= flash.now[:notice]%>
+	</div>
+<% elsif flash[:error] %>
+	<div class="error">
+		<%= flash.now[:error]%>
+	</div>
+<% end %>
+   	<% unless @user == current_user ||
+		current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+		<div id="light_<%= @user.id.to_s%>" class="white_content" style="display:none">
+		    <%=render :partial => 'shared/show_user', :locals=>{:u => @user} %>
+		</div>
+		<script  type="text/javascript" charset="utf-8">
+			window.onload = popup('<%=@user.id.to_json%>');
+		</script>
+	<% else %>
+		<%=render :partial => 'shared/user_info'%>	
+   <% end %>	
+
+

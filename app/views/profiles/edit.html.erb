@@ -1,0 +1,57 @@
+<p><%=link_to "Back to Profile", user_path(current_user)%></p>
+<div id="create-form">
+	<%= error_messages_for :profile %>
+	<div id="notice">
+		<%= flash[:notice] %>
+	</div>
+	
+	<% form_for :profile, :url => {:action => :update}, :html=>{:method=>:put} do |f| %>
+     <fieldset>
+     	<h4><%=link_to_function "Change personal info" do |page|
+			page["item-part1"].toggle
+			end%>
+		</h4>
+     	<div id="item-part1" style="display:none">
+     		<p>Name: <%=f.text_field :first_name, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>Family Name: <%=f.text_field :last_name, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>Date of birth: <%=f.date_select("birthday", :start_year => 1920)%></p>
+			<p>Gender: <%=f.select :gender, ["Select Sex:", "Female", "Male"]%></p>
+     	</div>
+		<h4><%=link_to_function "Change address info" do |page|
+			page["item-part2"].toggle
+			end%>
+		</h4>
+		<div id="item-part2" style="display:none" >
+     		<p>Address: <%=f.text_field :street, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>City: <%=f.text_field :city, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>Country: <%=f.country_select :country, "Select Country:" %></p>
+			<p>Region: <%=f.text_field :region, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+     	</div>
+		<h4>
+		<%=link_to_function "More info" do |page|
+			page["item-part3"].toggle
+			end%>
+		</h4>
+		<div id="item-part3" style="display:none" >
+			<p>Interests: <%=f.text_area :interests, :style => "width:250px;height:80px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>About Me: <%=f.text_field :about_me, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>Here For: <%=f.text_field :here_for, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+			<p>My Website: <%=f.text_field :website, :style => "width:250px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></p>
+     	</div>
+		<h4>
+		<%=link_to_function "Set Profile Pic" do |page|
+			page["item-part4"].toggle
+			end%>
+		</h4>
+		<div id="item-part4" style="display:none">
+     		
+     	</div>
+		<h4>
+		<%=link_to "Change Password", change_path %> 
+		</h4>
+		<div id="button"><%= submit_tag "Update" %> </div>
+       
+     </fieldset>
+   <% end %>
+
+</div>

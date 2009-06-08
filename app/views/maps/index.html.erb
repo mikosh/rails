@@ -1,0 +1,71 @@
+<div id="header">
+    <div id="toolbar">
+        <ul style="float:left;">
+		<li>
+            <%form_remote_tag :url => {:controller => 'maps', :action => 'search'}, :method => :post,
+            :complete => "Element.addClassName('body', 'sidebar-on')",
+            :loading => "$('spinner').style.display='block'",
+            :loaded => "$('spinner').style.display='none'",
+			:style => "margin:0;padding:0;" do %>
+            <%= text_field_tag :search, nil, :onFocus => "addClassName('search-term-focus', this);", :onBlur=>"removeClassName('search-term-focus', this);", :class => "search-term" %>
+            <%= submit_tag "Search"%>
+            <% end %>
+        </li>
+		<li>
+            Find addresses and places of interest <%=link_to_remote "| Show Photos", :url => {:controller => 'maps', :action => 'addMarkers'} if logged_in? %>
+        </li>
+		<li><%= image_tag("/images/ajax-spinner.gif", :id=>"spinner") %></li>
+		</ul>  
+		
+    </div>
+    <div id="button-sidebar-show">
+	    <%=link_to_function image_tag("/images/map_show.png"), "Element.addClassName('body', 'sidebar-on')" %>
+	</div>
+    <div id="sidebar-controls">
+        <div id="button-sidebar-hide">
+            <%=link_to_function image_tag("/images/map_hide.png"), "Element.removeClassName('body', 'sidebar-on')"%>
+        </div>
+		<div style="float:right;padding:5px;">
+		<a href="http://www.mozilla.com/?from=sfx&uid=261896&t=306"><img border="0" alt="Spread Firefox Affiliate Button" src="http://sfx-images.mozilla.org/affiliates/Buttons/firefox3/110x32_get_ffx.png" /></a>
+    	</div>
+	</div>
+</div>
+<div id="page">
+	<div id="map-wrapper">
+		<div id="map">
+	    </div>	
+	</div>
+    <div id="sidebar">
+    	<div style="margin:5px; font-size:12px;">
+			<b><%=link_to_function "Calculate route" do |page|
+				page["directions"].show
+			end%></b>
+		</div>
+    	<div id="directions" style="display:none;">
+	        <div style="float:right;">
+	            <%=link_to_function image_tag("/images/close.png", :style=>"border:none;") do |page|
+	            page["directions"].hide
+	            end %>
+	        </div>
+	        <br clear="all"/>
+	        <% form_remote_tag :url => {:controller => 'maps', :action => 'route'},:method => :post,
+	        :complete => "$('results').style.padding='0px'",
+	        :loading => "$('spinner').style.display='block'",
+	        :loaded => "$('spinner').style.display='none'",
+	        :style => "margin:0;padding:0;" do %>
+	        <div style="height:30px;">
+	            <%=image_tag("/images/start.png") %><%= text_field_tag :start, nil, :style => "height: 17px;width: 215px;margin-left:3px;", :onFocus => "addClassName('search-term-focus', this);", :onBlur=>"removeClassName('search-term-focus', this);", :class => "search-term" %>
+	        </div>
+	        <div style="height:30px;">
+	            <%=image_tag("/images/dest.png") %><%= text_field_tag :destination, nil, :style => "height: 17px;width: 215px;margin-left:3px;", :onFocus => "addClassName('search-term-focus', this);", :onBlur=>"removeClassName('search-term-focus', this);", :class => "search-term" %>
+	        </div>
+	        <div style="float:right;">
+	            <%= submit_tag "Calculate route" %>
+	        </div>
+        <% end %>
+		</div>
+		<div id="results">
+		</div>
+		<br/>
+    </div>	
+</div>

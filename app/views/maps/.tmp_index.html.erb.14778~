@@ -1,0 +1,35 @@
+<div id="header">
+    <div id="toolbar">
+        <div>
+            <%form_remote_tag :url => {:controller => 'maps', :action => 'search'},:method => :post,
+            :complete => "Element.addClassName('body', 'sidebar-on')",
+            :loading => "$('spinner').style.display='block'",
+            :loaded => "$('spinner').style.display='none'" do %>
+            <%= text_field_tag :search, "", :size => 35 %>
+            <%= submit_tag "Search" %>
+            <% end %>
+        </div>
+        <p style="margin:0;padding:0;padding-left:5px;color:#585858">
+            Find addresses and places of interest<%=link_to_remote "Show pics", :url => {:controller => 'maps', :action => 'addMarkers'} if logged_in? %>
+        </p>
+        <%= image_tag("/images/indicator_small.gif", :id=>"spinner", :style=>"display: none;") %>
+    </div>
+    <div id="button-sidebar-show">
+        <%=link_to_function image_tag("/images/map_show.png"), "Element.addClassName('body', 'sidebar-on')" %>
+    </div>
+    <div id="sidebar-controls">
+        <div id="button-sidebar-hide">
+            <%=link_to_function image_tag("/images/map_hide.png"), "Element.removeClassName('body', 'sidebar-on')" %>
+        </div>
+    </div>
+</div>
+<div id="page">
+	<div id="map-wrapper">
+		
+		<div id="map">
+	    </div>
+		<%=link_to_function "Go up", "$('toolbar').focus();"%>
+	</div>
+    <div id="sidebar">
+    </div>
+</div>

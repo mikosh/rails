@@ -1,0 +1,28 @@
+<p>
+    Back to <%=link_to "#{@user.login}'s Profile", user_path(@user) %> >> Back to <%= link_to "#{@user.login}'s Photos", user_albums_path(@user.id) %>
+</p>
+<% if flash[:notice]%>
+	<div class="error">
+		<%=flash[:notice]%>
+	</div>
+<% end %>
+<%=error_messages_for :album%>
+<%= error_messages_for :photo%>
+<h3>Album: <%= @album.album_name%></h3>
+<%form_for :album, :url => user_album_path(@user, @album), :html => {:multipart => true , :method => 'put' } do |f| %>
+	<div id="images">
+	    <%= render :partial => 'photo', :collection => @album.photos %>
+		<br style="clear:both"/>
+		<div id="new-image"></div>
+	</div>
+	<p>
+	    <%= submit_tag "Update" %>
+	</p>
+<% end %>
+<% if @album.photos.size < @settings.max_photos%>
+<p>
+    <%= link_to_function "Add Image" do |page|
+    page['new-image'].replace_html :partial => "photo", :object => Photo.new()
+    end %>
+</p>
+<% end %>

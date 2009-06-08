@@ -1,0 +1,15 @@
+<div class="user_form">
+	<h2 style="border-bottom: 1px solid #585858;padding:5px;">Reset Password</h2>
+	<% if flash[:notice] || !@user.errors.empty?%>
+	<div class="error">
+		<%= error_messages_for :user %>
+		<%= flash[:notice]%>
+	</div>
+	<% end %>
+	<p> <b>Pick up a new password. </b></p>
+	<% form_for :user do |f| -%>
+	    <p style="width:250px">Password: <%= f.password_field :password %></p>
+		<p style="width:250px">Confirm Password: <%= f.password_field :password_confirmation %></p>
+		<%= submit_tag 'Change Password' %>
+	<% end -%>
+</div>

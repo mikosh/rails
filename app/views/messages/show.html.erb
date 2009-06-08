@@ -1,0 +1,11 @@
+<p><%= link_to "Back to Inbox", inbox_path%></p>
+<div style="background: #EBEFF9; padding:5px; border: 1px solid #999999;">
+<p><strong>From: </strong> <%=h @message.author.login %></p>
+<p><strong>To: </strong> <%=h @message.recipients.map(&:login).to_sentence %></p>
+<p><strong>About: </strong><%=h @message.subject %></p>
+<p><strong>Received on: </strong> <%= @message.created_at.to_s(:long) %></p>
+</div>
+<div style="font-size: 13px;padding:5px;min-height:110px;border: 1px solid #999999;border-top:none;">
+	<%= h(@message.body) %>
+</div>
+<p><%= link_to "Reply", reply_message_path(@message) %> | <%= link_to "Forward", forward_message_path(@message) %></p>

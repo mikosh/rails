@@ -1,0 +1,15 @@
+<div id="logform">
+    <% form_tag session_path do %>
+    	<ul>
+            <li>Email: <%= text_field_tag 'email', @email, :style => " width:138px;",:onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></li>
+            <li>Pass: <%= password_field_tag 'password', nil, :style => "width:138px;", :onFocus => "addClassName('input-term-focus', this);", :onBlur=>"removeClassName('input-term-focus', this);", :class => "input-term" %></li>
+            <li><%= image_submit_tag("/images/login_button.png", :id=>"login") %></li>
+		</ul>
+		<ul>
+            <li style="width:173px;margin-top:2px;">Remember me: <%= check_box_tag 'remember_me','1', @remember_me %></li>
+            <li style="width:173px;margin-top:3px;"><p><%= link_to "Forgot your password?", forgot_path %></p></li>
+		</ul>
+    <% end %>
+</div>
+
+

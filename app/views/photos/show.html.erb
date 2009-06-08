@@ -1,0 +1,63 @@
+<p>
+	<% if @user != current_user %>
+    <%=link_to "Back to #{@user.login}'s Profile", user_path(@user) %> >> <%= link_to "Back to #{@user.login}'s Photos", user_albums_path(@user.id) %> >> 
+	<%=link_to "Back to #{@user.login}'s Album", (@user.id == current_user.id || @admin)? edit_user_album_path(@album.user_id, @album) : user_album_path(@album.user_id, @album) %>
+	<% else %>
+	<%=link_to "Back to Profile", user_path(@user) %> >> <%= link_to "Back to Photos", user_albums_path(@user.id) %> >> 
+	<%=link_to "Back to Album", (@user.id == current_user.id || @admin)? edit_user_album_path(@album.user_id, @album) : user_album_path(@album.user_id, @album) %>
+	<% end %>
+</p>
+<div id="show_photo">
+    <center>
+	    <% if @photo.user_id == current_user.id || @admin %>
+	    <div id="th_panel">
+			<% unless @location.photo_id %>
+			<%= link_to_function "Add to Map" do |page|
+				page["add-to-map"].toggle end %> | 
+			<% else %>
+			<%=link_to_function "Update location" do |page|
+			page["update-location"].toggle end %> | 
+			<%=link_to "Remove photo from map", location_path(:id => @location.id), :method =>
+				:delete, :confirm => "Are you sure you want to remove photo from map?" %> | 
+			<% end %>
+	        <%= link_to 'Edit', edit_user_album_photo_path(@album.user_id, @album, @photo) %>
+	        | <%= link_to 'Delete', user_album_photo_path(@album.user_id, @album, @photo), :method => :delete, :confirm => 'Are you sure?' %>
+	    </div>
+	    <% end %>
+		
+		<table>
+		<tr>
+		<td><%= link_to image_tag("/images/prev.gif"), user_album_photo_path(@album.user_id, @album.id, @previous) if @previous %></td>
+		<td> 
+            <%= image_tag(@photo.public_filename) %>      
+		</td>
+		<td> <%= link_to image_tag("/images/next.gif"), user_album_photo_path(@album.user_id, @album.id, @next) if @next %>
+		</td>
+		</tr>
+		</table>
+		<div id="th_image">
+			<p>
+                Photo <%=@photo_number %> of <%=@album.photos.count %> from <%= link_to "#{@user.login}", user_path(@user) %>'s 			
+				<%= link_to "#{@album.album_name}", (@user.id == current_user.id || @admin)? edit_user_album_path(@user, @album) : user_album_path(@user, @album) %>		
+            </p>
+		</div>
+        <div id="th_image_comm">
+            <%= "<b>Title: </b>" + @photo.description if @photo.description %>
+        </div>
+		<div class="comment">
+			<%= link_to_function "Add Comment" do |page|
+			    page["new-comment"].toggle
+			end %>
+			<div id="new-comment" style="display:none"><%= render :partial => "/walls/new_comment", :locals=>{:type => @photo} %></div>
+		</div>
+		<%= render :partial => "/walls/show_comments", :locals=>{:type => @photo} %>
+    </center>
+</div>
+<p><%=flash[:notice]%></p>
+<div id="add-to-map" style="display:none;">
+    <%=render :partial => "add_to_map",
+    :locals => {:location => @location, :photo => @photo} %>
+</div>
+<div id="update-location" style="display:none;">
+    <%=render :partial => "update_location", :locals => {:location => @location} %>
+</div>

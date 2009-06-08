@@ -1,0 +1,40 @@
+<div id="header">
+    <div id="toolbar">
+        <ul>
+		<li>
+            <%form_remote_tag :url => {:controller => 'maps', :action => 'search'},:method => :post,
+            :complete => "Element.addClassName('body', 'sidebar-on')",
+            :loading => "$('spinner').style.display='block'",
+            :loaded => "$('spinner').style.display='none'",
+			:style => "margin:0;padding:0;" do %>
+            <%= text_field_tag :search, "", :style => "height: 17px;width: 266px;" %>
+            <%= submit_tag "Search"%>
+            <% end %>
+        </li>
+		<li>
+            Find addresses and places of interest <%=link_to_remote "| Show Photos", :url => {:controller => 'maps', :action => 'addMarkers'} if logged_in? %>
+        </li>
+		<li><%= image_tag("/images/ajax-spinner.gif", :id=>"spinner") %></li>
+		</ul>  
+    </div>
+    <div id="button-sidebar-show">
+        <%=link_to_function image_tag("/images/map_show.png"), "Element.addClassName('body', 'sidebar-on')" %>
+    </div>
+    <div id="sidebar-controls">
+        <div id="button-sidebar-hide">
+            <%=link_to_function image_tag("/images/map_hide.png"), "Element.removeClassName('body', 'sidebar-on')"%>
+        </div>
+    </div>
+	<div id="button-map-up">
+		<%=link_to_function "Exit Fullscreen", "window.scrollTo(0,0); Element.removeClassName('body', 'fullmap');"%>
+	</div>
+</div>
+<div id="page">
+	<div id="map-wrapper">
+		<div id="map">
+	    </div>	
+	</div>
+    <div id="sidebar">
+    	<p style="text-align:center;">Use the Search field to find places on the map</p>
+    </div>
+</div>

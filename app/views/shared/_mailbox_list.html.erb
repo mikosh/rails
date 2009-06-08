@@ -1,0 +1,24 @@
+<div style="border:1px solid #aaa;padding:5px;margin-top:5px;">
+    <p>
+        <strong>Navigation</strong>
+    </p>
+    <ul>
+        <li>
+            <%=link_to "Inbox", inbox_path %>
+        </li>
+        <li>
+            <%=link_to "Compose Message", new_sent_path %>
+        </li>
+        <li>
+            <%=link_to "Sent Messages", sent_index_path %>
+        </li>
+        <li>
+            <%= link_to "My friends", user_friends_path(current_user) %>
+        </li>
+    </ul>
+
+</div>
+
+
+
+

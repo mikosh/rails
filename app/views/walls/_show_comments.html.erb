@@ -1,0 +1,29 @@
+
+<% for c in type.comments.reverse %>
+  	<div class="comment">
+    <div class="title">
+    	<% u = User.find(c.user_id)%>
+    	written by <b><%=link_to h(u.name), user_path(u) %></b> 
+      	<%= c.created_at.strftime(" %b %d, %Y at %H:%M") %>
+    </div>
+	<div class="details">
+    	<div class="gravatar">
+    		<%=image_tag((u.albums.first.photos.first)? u.albums.first.photos.first.public_filename(:small) : "/images/user_default_small.png")%>
+    	</div>
+		<div>
+		<%= simple_format(h(c.comment)) %>
+		</div>
+    </div>
+    <% if type.user_id == current_user.id %>
+			<div class="reply">
+				<%= link_to 'Reply to', reply_comment_path(c) if c.user_id != current_user.id %>
+				<%= link_to image_tag("/images/error16.png", :style=>"border:none;"), c, :confirm => 'Delete comment?', :method => :delete, :style=>"position:absolute;top:5px;right:5px;" %>
+			</div>
+	 <% end %>
+	</div>
+<% end %>
+
+<br />
+
+
+

@@ -1,0 +1,3 @@
+<% for column in UserProfile.content_columns %>
+	<p><%= column.human_name%>: <%= current_user.user_profile.send(column.name) %></p>
+<% end %>

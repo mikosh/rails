@@ -1,0 +1,36 @@
+<div>
+	<div id="popup-title">
+		<%if current_user.requested_friends.include?(u) %>
+		<h2>Request sent</h2>
+		<% else %>
+		<h2>Add <%= u.login %> as friend?</h2>
+		<% end %>
+	</div>
+    <div id="information">
+        <%if current_user.requested_friends.include?(u) %>
+        <p>
+            Friendship request sent to <%=h u.login %>. 
+            Please check <%=link_to "Requested friends", user_friends_path(current_user) %>
+        </p>
+        <% else %>
+        <p>
+            <%=h u.login %> will have to confirm your request. <%=link_to_function "Add a personal message" do |page|
+            page["text-field"].show
+            end %>
+        </p>
+        <% end %>
+    </div>
+    <div id="popup-pic">
+        <% if u.albums.first.photos.first %>
+        <%=image_tag(u.albums.first.photos.first.public_filename(:thumb)) %>
+        <% else %>
+        <%=image_tag('/images/user_default.png') %>
+        <% end %>
+    </div>
+    <div id="<%= "send_request_" + u.id.to_s %>" style="float:left;">
+        <%=render :partial => 'friends/request', :locals=>{:u=> u, :message => current_user.sent_messages.build} %>
+    </div>
+    <br clear="all"/>
+    
+</div>
+
