@@ -1,0 +1,12 @@
+body {
+	background:transparent url(/images/color.png) repeat-x scroll 0 0;
+	direction:ltr;
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size:11px;
+	margin:0;
+	padding:0;
+	text-align:left;
+	unicode-bidi:embed;	
+	height:100%;
+}
+

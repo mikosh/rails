@@ -1,0 +1,50 @@
+
+.black_overlay {
+    /*display: none;*/
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 1001;
+    opacity: .50;
+    /*filter: alpha( opacity = 50);*/
+} 
+.white_content {
+    /*display: none;*/
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    width: 400px;
+    height: 180px;
+    padding: 10px;
+    border: 10px solid #585858;
+    background-color: #ebeff9;
+    z-index: 1002;
+    overflow: auto;
+}
+.white_content a{
+	color:#3B5998;
+}
+.white_content #popup-pic {
+	float:left;
+	border:1px solid #585858;
+	margin: 0 10px 5px 0;
+}
+.white_content #popup-title{
+	border-bottom:1px solid #999999;
+	padding-bottom:5px;
+}
+.white_content #popup-title h2{
+	margin:0;
+	font-size: 14px;
+}
+#submit{
+	position:absolute;
+	bottom:5px;
+	right:5px;
+}
+#close a{
+	color:#ffffff;
+}
